@@ -1,0 +1,131 @@
+﻿
+* {
+    font-family: 'Trebuchet MS';
+    color: darkgreen;
+}
+
+h1 {
+    text-align: center;
+}
+
+hr {
+    width: 65%;
+    border: 1px solid white;
+}
+
+h2 {
+    margin-left: 10px;
+}
+
+h3 {
+    margin-left: 10px;
+}
+
+div.table {
+    vertical-align: top;
+    background-color: rgba(98, 98, 98, 0.50);
+    width: 49%;
+    height: 500px;
+    padding: 5px;
+    display: inline-block;
+    margin-left: 35px;
+}
+
+div.container {
+    width: 100%;
+}
+
+div.buttons {
+    background-color: rgba(98, 98, 98, 0.50);
+    width: 13.8%;
+    height: 510px;
+    display: inline-block;
+    margin-left: 338px;
+}
+
+
+td.paran {
+    background-color: darkgreen;
+    border: 3px solid black;
+    padding: 1px;
+    color: gold;
+    font-size: 15px;
+}
+
+td.neparan {
+    background-color: gold;
+    border: 3px solid black;
+    padding: 1px;
+    font-size: 15px;
+}
+
+table {
+    border: 3px solid black;
+    width: 850px;
+    height: 400px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+th {
+    border: 3px solid black;
+    padding: 1px;
+    text-align: center;
+    font-size: 25px;
+}
+
+button {
+    width: 60px;
+    height: 30px;
+    color: darkgreen;
+    border-radius: 8px 6px;
+}
+
+    button.sort {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        margin-left: 4px;
+    }
+
+        button.sort:hover {
+            width: 80px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    button:hover {
+        width: 60px;
+        height: 30px;
+        color: gold;
+        background-color: darkgreen;
+    }
+
+input[type="text"] {
+    background-color: gold;
+}
+
+input[type="number"] {
+    background-color: gold;
+}
+
+
+label#godina {
+    font-weight: bold;
+}
+
+input[type="submit"]#pretrazi {
+    margin-left: 10px;
+    width: 60px;
+    height: 30px;
+    color: darkgreen;
+    border-radius: 8px 6px;
+}
+
+    input[type="submit"]#pretrazi:hover {
+        color: gold;
+        background-color: darkgreen;
+    }
+

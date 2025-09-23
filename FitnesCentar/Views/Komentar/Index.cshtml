@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using FitnesCentar.Models;
+
+<style>
+    * {
+        font-family: 'Trebuchet MS';
+        color: darkgreen;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    h2.drugo
+    {
+        text-align: center;
+    }
+
+    h3 {
+        display: inline;
+    }
+
+    h4 {
+        display: inline;
+    }
+
+    hr {
+        width: 65%;
+        border: 1px solid white;
+    }
+
+    div.container {
+        width: 30%;
+        height: 350px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    div.komentari {
+        width: 64.7%;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin-left: 340px;
+    }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 1000px;
+        height: 400px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    button {
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        button.sort {
+            width: 80px;
+            height: 30px;
+            color: darkgreen;
+            border-radius: 8px 6px;
+            margin-left: 4px;
+        }
+
+            button.sort:hover {
+                width: 80px;
+                height: 30px;
+                color: gold;
+                background-color: darkgreen;
+            }
+
+        button:hover {
+            width: 60px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    textarea {
+        background-color: gold;
+        width: 400px;
+        height: 100px;
+        margin-left: 8%;
+    }
+
+
+
+    input[type="password"] {
+        background-color: gold;
+    }
+
+    input[type="submit"] {
+        margin-left: 10px;
+        width: 85px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        input[type="submit"]:hover {
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    label.greska {
+        color: red;
+        font-size: 10px;
+    }
+
+    label.opis {
+        position: absolute;
+    }
+</style>
+
+@{
+    Korisnik logovani = null;
+    string[] errors = ViewBag.errors;
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+        if (logovani.Uloga != Uloga.POSETILAC)
+        {
+            logovani = null;
+        }
+    }
+}
+
+
+    @if (logovani == null)
+    {
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container2">
+            <h2 class="drugo">Niste se ulogovali!</h2>
+            <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+        </div>
+    }
+    else
+    {
+
+    <h1>EVIDENCIJA FITNES CENTARA</h1>
+    <hr>
+    <div class="container">
+        <h2>Ostavi komentar</h2>
+        @if (ViewBag.error == null)
+        {
+            <form method="post" action="~/Komentar/Ostavi">
+                <label class="opis">Opis:</label>
+                <textarea name="Opis"></textarea>
+                <br />
+                <br />
+                <label>Ocena:</label>&nbsp;&nbsp;&nbsp;
+                1&nbsp;<input type="radio" name="Ocena" value="1" />
+                2&nbsp;<input type="radio" name="Ocena" value="2" />
+                3&nbsp;<input type="radio" name="Ocena" value="3" />
+                4&nbsp;<input type="radio" name="Ocena" value="4" />
+                5&nbsp;<input type="radio" name="Ocena" value="5" />
+                <br>
+                <br />
+                <input type="submit" value="Ostavi" />
+            </form>
+        }
+        else
+        {
+            <form method="post" action="~/Komentar/Ostavi">
+                <label class="opis">Opis:</label>
+                <textarea name="Opis"></textarea>
+                <br />
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("komentar"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Ocena:</label>&nbsp;&nbsp;&nbsp;
+                1&nbsp;<input type="radio" name="Ocena" value="1" />
+                2&nbsp;<input type="radio" name="Ocena" value="2" />
+                3&nbsp;<input type="radio" name="Ocena" value="3" />
+                4&nbsp;<input type="radio" name="Ocena" value="4" />
+                5&nbsp;<input type="radio" name="Ocena" value="5" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("ocenu"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <input type="submit" value="Ostavi" />
+            </form>
+            <a href="/Posetilac/Index">Nazad</a>
+        }
+    </div>
+    }

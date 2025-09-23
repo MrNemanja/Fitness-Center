@@ -1,0 +1,266 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using FitnesCentar.Models;
+
+<style>
+
+    * {
+        font-family: 'Trebuchet MS';
+    }
+
+    h1 {
+        text-align: center;
+        color: darkgreen;
+    }
+
+    hr {
+        width: 64%;
+        border: 1px solid white;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: darkgreen;
+    }
+    h2.drugo
+    {
+        text-align: center;
+    }
+
+    h3 {
+        margin-left: 10px;
+        color: darkgreen;
+    }
+
+    div.table {
+        background-color: rgba(98, 98, 98, 0.50);
+        width: 64%;
+        height: 45%;
+        padding: 5px;
+        margin-left: 17%;
+        position: absolute;
+        color: darkgreen;
+    }
+
+    div.posetioci {
+        background-color: rgba(98, 98, 98, 0.50);
+        width: 64%;
+        height: 25%;
+        padding: 5px;
+        margin-left: 17%;
+        color: darkgreen;
+        margin-top: 25%;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    button.meni {
+        background-color: rgba(17, 17, 17, 0.65);
+        color: gold;
+        width: 48.7%;
+        height: 50px;
+    }
+
+        button.meni:hover {
+            color: antiquewhite;
+        }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+        color: darkgreen;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 90%;
+        height: 70%;
+        text-align: center;
+        margin-left: 10px;
+        color: darkgreen;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+        color: darkgreen;
+    }
+
+    button.ostali {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+    button.obrisi {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+    button.sort {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        margin-left: 4px;
+    }
+
+        button.sort:hover {
+            width: 80px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    button.ostali:hover {
+        width: 80px;
+        height: 30px;
+        color: gold;
+        background-color: darkgreen;
+    }
+
+    input[type="text"] {
+        background-color: gold;
+        color: darkgreen;
+    }
+
+    input[type="number"] {
+        background-color: gold;
+        color: darkgreen;
+    }
+
+
+    label#godina {
+        font-weight: bold;
+        color: darkgreen;
+    }
+
+    input[type="submit"]#pretrazi {
+        margin-left: 10px;
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        color: darkgreen;
+    }
+
+        input[type="submit"]#pretrazi:hover {
+            color: gold;
+            background-color: darkgreen;
+            color: darkgreen;
+        }
+
+    label.error {
+        color: red;
+    }
+</style>
+
+@{
+    Korisnik logovani = null;
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+        if (logovani.Uloga != Uloga.VLASNIK)
+        {
+            logovani = null;
+        }
+    }
+}
+
+
+    @if (logovani == null)
+    {
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container2">
+            <h2 class="drugo">Niste se ulogovali!</h2>
+            <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+        </div>
+    }
+    else
+    {
+
+    <h1>EVIDENCIJA FITNES CENTARA</h1>
+    <hr>
+
+    <div class="table">
+        <h2>Fitnes centri</h2>
+
+        <table>
+            <tr>
+                <th>Naziv</th>
+                <th>Adresa</th>
+                <th>Godina otvaranja</th>
+                <th>Mesecna clanarina</th>
+                <th>Godisnja clanarina</th>
+                <th>Dnevni trening</th>
+                <th>Grupni trening</th>
+                <th>Sa trenerom</th>
+                <th></th>
+            </tr>
+
+            @{
+
+                foreach (Fitnes_Centar centar in ViewBag.centri)
+                {
+                    <tr>
+
+                        <td class="paran">@centar.Naziv</td>
+                        <td class="neparan">@centar.Adresa</td>
+                        <td class="paran">@centar.Godina_otvaranja</td>
+                        <td class="neparan">@centar.Cena_mesecne_clanarine</td>
+                        <td class="paran">@centar.Cena_godisnje_clanarine</td>
+                        <td class="neparan">@centar.Cena_jednog_treninga</td>
+                        <td class="paran">@centar.Cena_jednog_grupni</td>
+                        <td class="neparan">@centar.Cena_jednog_trener</td>
+                        <td class="paran">
+                            <form method="post" action="~/Fitnes/Radnja">
+                                <button class="ostali" type="submit" name="radnja" value="mod/@centar.Naziv">Modifikuj</button>
+                                <br />
+                                <button class="ostali" type="submit" name="radnja" value="obrisi/@centar.Naziv">Obrisi</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                }
+            }
+
+        </table>
+        @if (ViewBag.error != null)
+        {
+            <label class="error">@ViewBag.error</label>
+        }
+        <br />
+        <form method="post" action="~/Fitnes/KreirajView">
+            <button class="ostali" type="submit" style="margin-left: 10px; width: 100px;">Kreiraj novi</button>
+        </form>
+        <a href="/Home4/Index4">Nazad</a>
+    </div>
+
+}

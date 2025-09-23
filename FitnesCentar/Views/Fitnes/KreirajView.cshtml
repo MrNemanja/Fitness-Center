@@ -1,0 +1,420 @@
+﻿
+@{
+    ViewBag.Title = "KreirajView";
+}
+
+@using FitnesCentar.Models;
+
+<style>
+    * {
+        font-family: 'Trebuchet MS';
+        color: darkgreen;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 {
+        display: inline;
+    }
+
+    h4 {
+        display: inline;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    h2.drugo
+    {
+        text-align: center;
+    }
+
+    hr {
+        width: 65%;
+        border: 1px solid white;
+    }
+
+    div.container {
+        width: 40%;
+        height: 48%;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 1000px;
+        height: 400px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    button {
+        width: 85px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        button.sort {
+            width: 80px;
+            height: 30px;
+            color: darkgreen;
+            border-radius: 8px 6px;
+            margin-left: 4px;
+        }
+
+            button.sort:hover {
+                width: 80px;
+                height: 30px;
+                color: gold;
+                background-color: darkgreen;
+            }
+
+        button:hover {
+            width: 85px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    input[type="text"] {
+        background-color: gold;
+    }
+
+    input[type="number"] {
+        background-color: gold;
+    }
+
+    input[type="datetime"] {
+        background-color: gold;
+    }
+
+    input[type="submit"] {
+        margin-left: 10px;
+        width: 85px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        input[type="submit"]:hover {
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    label.greska {
+        color: red;
+        font-size: 10px;
+    }
+</style>
+
+@{
+    Korisnik logovani = null;
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+        if (logovani.Uloga != Uloga.VLASNIK)
+        {
+            logovani = null;
+        }
+    }
+}
+
+   
+    @if (logovani == null)
+    {
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container2">
+            <h2 class="drugo">Niste se ulogovali!</h2>
+            <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+        </div>
+    }
+    else
+    {
+
+    <h1>EVIDENCIJA FITNES CENTARA</h1>
+    <hr>
+    <div class="container">
+        <h2>Kreiranje fitnes centra</h2>
+        @if (ViewBag.error == null)
+        {
+            <form method="post" action="~/Fitnes/Kreiraj">
+                <label>Naziv:</label>
+                <input type="text" name="Naziv" />
+                <br>
+                <br />
+                <br />
+                <label>Ulica:</label>
+                <input type="text" name="ulica" />
+                <br>
+                <br />
+                <br />
+                <label>Broj:</label>
+                <input type="number" name="broj" />
+                <br>
+                <br />
+                <br />
+                <label>Grad:</label>
+                <input type="text" name="grad" />
+                <br>
+                <br />
+                <br />
+                <label>Postanski broj:</label>
+                <input type="number" name="postanski" />
+                <br>
+                <br />
+                <br />
+                <label>Godina otvaranja:</label>
+                <input type="number" name="Godina_otvaranja" />
+                <br>
+                <br />
+                <br />
+                <label>Cena mesecne clanarine:</label>
+                <input type="number" name="Cena_mesecne_clanarine" />
+                <br>
+                <br />
+                <br />
+                <label>Cena godisnje clanarine:</label>
+                <input type="number" name="Cena_godisnje_clanarine" />
+                <br>
+                <br />
+                <br />
+                <label>Cena dnevnog treninga:</label>
+                <input type="number" name="Cena_jednog_treninga" />
+                <br>
+                <br />
+                <br />
+                <label>Cena jednog grupnog treninga:</label>
+                <input type="number" name="Cena_jednog_grupni" />
+                <br>
+                <br />
+                <br />
+                <label>Cena jednog treninga sa trenerom:</label>
+                <input type="number" name="Cena_jednog_trener" />
+                <br>
+                <br />
+                <br />
+                &nbsp;&nbsp;
+                <button type="submit" name="naziv">Kreiraj</button>
+            </form>
+        }
+        else
+        {
+            string[] errors = ViewBag.error;
+
+
+            <form method="post" action="~/Fitnes/Modifikacija">
+                <label>Naziv:</label>
+                <input type="text" name="Naziv" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("naziv"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Ulica:</label>
+                <input type="text" name="ulica" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("ulicu"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Broj:</label>
+                <input type="number" name="broj" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("broj"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Grad:</label>
+                <input type="text" name="grad" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("grad"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Postanski broj:</label>
+                <input type="number" name="postanski" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("postanski"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Godina otvaranja:</label>
+                <input type="number" name="Godina_otvaranja" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("godina"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Cena mesecne clanarine:</label>
+                <input type="number" name="Cena_mesecne_clanarine" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("mesecne"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Cena godisnje clanarine:</label>
+                <input type="number" name="Cena_godisnje_clanarine" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("godisnje"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Cena dnevnog treninga:</label>
+                <input type="number" name="Cena_jednog_treninga" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("dnevnog"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Cena jednog grupnog treninga:</label>
+                <input type="number" name="Cena_jednog_grupni" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("jednog"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <label>Cena jednog treninga sa trenerom:</label>
+                <input type="number" name="Cena_jednog_trener" />
+                <br>
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("trenerom"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                &nbsp;&nbsp;
+                <button type="submit" name="naziv">Kreiraj</button>
+            </form>
+
+        }
+        <br />
+        <a href="/Fitnes/Index">Nazad</a>
+    </div>
+
+    }

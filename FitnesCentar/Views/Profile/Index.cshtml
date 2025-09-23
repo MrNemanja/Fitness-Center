@@ -1,0 +1,393 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using FitnesCentar.Models;
+<style>
+    * {
+        font-family: 'Trebuchet MS';
+        color: darkgreen;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 {
+        display: inline;
+    }
+
+    h4 {
+        display: inline;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    hr {
+        width: 65%;
+        border: 1px solid white;
+    }
+
+    div.container {
+        width: 30%;
+        height: 550px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+    }
+
+    div.komentari {
+        width: 64.7%;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin-left: 340px;
+    }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 1000px;
+        height: 400px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    div.slika {
+        width: 10%;
+        height: 15%;
+        background-color: rgba(98, 98, 98, 0.50);
+        border: 2px solid black;
+        position: absolute;
+        margin-left: 3%;
+    }
+
+    div.tekst {
+        width: 15%;
+        height: 25%;
+        position: absolute;
+        margin-left: 14%;
+        font-size: 15px;
+    }
+
+    div.izmena {
+        position: absolute;
+        margin-top: 10%;
+        text-align: center;
+        height: 15%;
+        width: 30%;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    button {
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        button.sort {
+            width: 80px;
+            height: 30px;
+            color: darkgreen;
+            border-radius: 8px 6px;
+            margin-left: 4px;
+        }
+
+            button.sort:hover {
+                width: 80px;
+                height: 30px;
+                color: gold;
+                background-color: darkgreen;
+            }
+
+        button:hover {
+            width: 60px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    input[type="text"] {
+        background-color: gold;
+    }
+
+    input[type="text"] {
+        background-color: gold;
+    }
+
+    input[type="password"] {
+        background-color: gold;
+    }
+
+    input[type="submit"] {
+        margin-left: 10px;
+        width: 85px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        input[type="submit"]:hover {
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    label.greska {
+        color: red;
+        font-size: 10px;
+    }
+
+    input[type="file"] {
+        position: absolute;
+        margin-top: 8%;
+        margin-left: 3%;
+    }
+
+        input[type="file"]:hover {
+            position: absolute;
+            margin-top: 8%;
+            margin-left: 3%;
+        }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script>
+
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+@{
+
+    Korisnik k = ViewBag.korisnik;
+    string path = ViewBag.files;
+    string[] errors = ViewBag.errors;
+    if (k == null)
+    {
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container2">
+            <h2>Niste se ulogovali!</h2>
+            <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+        </div>
+    }
+    else
+    {
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container">
+            <h2>Uredi Profil</h2>
+            <form method="post" action="~/Profile/Izmeni" enctype="multipart/form-data">
+                <div class="slika">
+                    <img src="~/Files/@path" id="output" />
+                </div>
+                <input type="file" name="image" accept="image/*" id="file" onchange="loadFile(event)" />
+
+                <div class="tekst">
+                    <label>Ime : @k.Ime</label>
+                    <br />
+                    <label>Prezime : @k.Prezime</label>
+                    <br />
+                    <label>Pol : @k.Pol</label>
+                    <br />
+                    <label>Email : @k.Email</label>
+                    <br />
+                    <label>Datum rodjenja : @k.Datum_rodjenja.Day/@k.Datum_rodjenja.Month/@k.Datum_rodjenja.Year</label>
+                    <br />
+                    <label>Uloga : @k.Uloga</label>
+                    <br />
+                    @if (k.Uloga == Uloga.TRENER)
+                    {
+                        <label>Fitnes centar : @k.FitnesCentar.Naziv</label>
+                        <br />
+                    }
+                    else if (k.Uloga == Uloga.VLASNIK)
+                    {
+                        <label>Fitnes centar: </label>
+                        foreach (Fitnes_Centar centar in k.Fitnescentri)
+                        {
+                            <label>@centar.Naziv </label>
+                        }
+                    }
+                </div>
+                @if (ViewBag.errors == null)
+                {
+                    <div class="izmena">
+                        <hr />
+                        <br />
+                        <label>Ime:</label>
+                        <input type="text" name="Ime" value="@k.Ime" />
+                        <br />
+                        <br />
+                        <br />
+                        <label>Prezime:</label>
+                        <input type="text" name="Prezime" value="@k.Prezime" />
+                        <br />
+                        <br />
+                        <br />
+                        <label>Pol:</label>
+                        &nbsp;&nbsp;
+                        <label>M:</label>
+                        @if (k.Pol == Pol.MUSKI)
+                        {
+                            <input type="checkbox" name="pol" value="PolM" checked />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="pol" value="PolM" />
+                        }
+                        &nbsp;
+                        <label>Z:</label>
+                        @if (k.Pol == Pol.ZENSKI)
+                        {
+                            <input type="checkbox" name="pol" value="PolZ" checked />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="pol" value="PolZ" />
+                        }
+                        <br>
+                        <br />
+                        <br />
+                        <label>Datum rodjenja:</label>
+                        <input type="date" name="Datum_rodjenja" />
+                        <br />
+                        <br />
+                        <br />
+                        <button type="submit">Izmeni</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="izmena">
+                        <hr />
+                        <br />
+                        <label>Ime:</label>
+                        <input type="text" name="Ime" value="@k.Ime" />
+                        <br />
+                        @foreach (string str in errors)
+                        {
+                            if (str.ToLower().Contains("ime") && !str.ToLower().Contains("prez"))
+                            {
+                                <label class="greska">
+                                    @str
+                                </label>
+
+                            }
+                        }
+                        <br />
+                        <br />
+                        <label>Prezime:</label>
+                        <input type="text" name="Prezime" value="@k.Prezime" />
+                        <br />
+                        @foreach (string str in errors)
+                        {
+                            if (str.ToLower().Contains("prez"))
+                            {
+                                <label class="greska">
+                                    @str
+                                </label>
+
+                            }
+                        }
+                        <br />
+                        <br />
+                        <label>Pol:</label>
+                        &nbsp;&nbsp;
+                        <label>M:</label>
+                        @if (k.Pol == Pol.MUSKI)
+                        {
+                            <input type="checkbox" name="pol" value="PolM" checked />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="pol" value="PolM" />
+                        }
+                        &nbsp;
+                        <label>Z:</label>
+                        @if (k.Pol == Pol.ZENSKI)
+                        {
+                            <input type="checkbox" name="pol" value="PolZ" checked />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="pol" value="PolZ" />
+                        }
+                        <br>
+                        @foreach (string str in errors)
+                        {
+                            if (str.ToLower().Contains("pol"))
+                            {
+                                <label class="greska">
+                                    @str
+                                </label>
+
+                            }
+                        }
+                        <br />
+                        <br />
+                        <label>Datum rodjenja:</label>
+                        <input type="date" name="Datum_rodjenja" />
+                        <br />
+                        @foreach (string str in errors)
+                        {
+                            if (str.ToLower().Contains("datum"))
+                            {
+                                <label class="greska">
+                                    @str
+                                </label>
+
+                            }
+                        }
+                        <br />
+                        <br />
+                        <button type="submit">Izmeni</button>
+                    </div>
+
+                }
+            </form>
+
+        </div>
+
+
+
+    }
+}
+

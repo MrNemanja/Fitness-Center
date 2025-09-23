@@ -1,0 +1,367 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using FitnesCentar.Models;
+
+<style>
+
+    * {
+        font-family: 'Trebuchet MS';
+    }
+
+    h1 {
+        text-align: center;
+        color: darkgreen;
+    }
+
+    hr {
+        width: 64%;
+        border: 1px solid white;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: darkgreen;
+    }
+
+    h2.drugo
+    {
+        text-align: center;
+    }
+
+    h3 {
+        margin-left: 10px;
+        color: darkgreen;
+    }
+
+    div.table {
+        background-color: rgba(98, 98, 98, 0.50);
+        width: 64%;
+        height: 50%;
+        padding: 5px;
+        margin-left: 17%;
+        position: absolute;
+        color: darkgreen;
+    }
+
+    div.posetioci {
+        background-color: rgba(98, 98, 98, 0.50);
+        width: 65%;
+        height: 25%;
+        padding: 5px;
+        margin-left: 17%;
+        color: darkgreen;
+        margin-top: 25%;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    button.meni {
+        background-color: rgba(17, 17, 17, 0.65);
+        color: gold;
+        width: 48.7%;
+        height: 50px;
+    }
+
+        button.meni:hover {
+            color: antiquewhite;
+        }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+        color: darkgreen;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 90%;
+        height: 70%;
+        text-align: center;
+        margin-left: 1%;
+        color: darkgreen;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+        color: darkgreen;
+    }
+
+    button.ostali {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+    button.obrisi {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+    button.sort {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        margin-left: 4px;
+    }
+
+        button.sort:hover {
+            width: 80px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    button.ostali:hover {
+        width: 80px;
+        height: 30px;
+        color: gold;
+        background-color: darkgreen;
+    }
+
+    input[type="text"] {
+        background-color: gold;
+        color: darkgreen;
+    }
+
+    input[type="number"] {
+        background-color: gold;
+        color: darkgreen;
+    }
+
+
+    label#godina {
+        font-weight: bold;
+        color: darkgreen;
+    }
+
+    input[type="submit"]#pretrazi {
+        margin-left: 10px;
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        color: darkgreen;
+    }
+
+        input[type="submit"]#pretrazi:hover {
+            color: gold;
+            background-color: darkgreen;
+            color: darkgreen;
+        }
+</style>
+
+@{
+    Korisnik logovani = null;
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+        if (logovani.Uloga != Uloga.TRENER)
+        {
+            logovani = null;
+        }
+
+    }
+}
+
+@if (logovani == null)
+{
+    <h1>EVIDENCIJA FITNES CENTARA</h1>
+    <hr>
+    <div class="container2">
+        <h2 class="drugo">Niste se ulogovali!</h2>
+        <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+    </div>
+}
+else
+{
+
+<h1>EVIDENCIJA FITNES CENTARA</h1>
+<hr>
+
+<div class="table">
+    <h2>Predstojeci grupni treninzi</h2>
+    @if (ViewBag.treninzi.Count == 0)
+    {
+        <h3>Ne postoji ni jedan predstojeci grupni trening</h3>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <th>Naziv</th>
+                <th>TipTreninga</th>
+                <th>Fitnes Centar</th>
+                <th>Trajanje</th>
+                <th>Datum i vreme</th>
+                <th>Max posetilaca</th>
+                <th></th>
+            </tr>
+
+            @{
+
+                foreach (GrupniTrening trening in ViewBag.treninzi)
+                {
+                    <tr>
+                        <td class="paran">@trening.Naziv</td>
+                        @if (trening.TipTreninga == TipTreninga.BODY_PUMP)
+                        {
+                            <td class="neparan">
+                                BODY PUMP
+                            </td>
+                        }
+                        @if (trening.TipTreninga == TipTreninga.CARDIO)
+                        {
+                            <td class="neparan">
+                                CARDIO
+                            </td>
+                        }
+                        @if (trening.TipTreninga == TipTreninga.LES_MILLS_BODYBALANCE)
+                        {
+                            <td class="neparan">
+                                LES MILLS BODYBALANCE
+                            </td>
+                        }
+                        @if (trening.TipTreninga == TipTreninga.LES_MILLS_TONE)
+                        {
+                            <td class="neparan">
+                                LES MILLS TONE
+                            </td>
+                        }
+                        @if (trening.TipTreninga == TipTreninga.YOGA)
+                        {
+                            <td class="neparan">
+                                YOGA
+                            </td>
+                        }
+                        <td class="paran">@trening.FitnesCentar.Naziv</td>
+                        <td class="neparan">@trening.Trajanje</td>
+                        @if (trening.Date_time.Minute < 10)
+                        {
+                            <td class="paran">@trening.Date_time.Day/@trening.Date_time.Month/@trening.Date_time.Year&nbsp;@trening.Date_time.Hour:<p style="display: inline;">0</p>@trening.Date_time.Minute</td>
+                        }
+                        else
+                        {
+                            <td class="paran">@trening.Date_time.Day/@trening.Date_time.Month/@trening.Date_time.Year&nbsp;@trening.Date_time.Hour:@trening.Date_time.Minute</td>
+                        }
+                        <td class="neparan">@trening.Max_posetilaca</td>
+                        <td class="paran">
+                            <form method="post" action="~/PredTrener/Radnja">
+                                @if (trening.Posetioci.Count == 0)
+                                {
+                                    <button class="ostali" type="submit" name="radnja" value="mod/@trening.Naziv">Modifikuj</button>
+                                    <br />
+                                    <button class="ostali" type="submit" name="radnja" value="obrisi/@trening.Naziv">Obrisi</button>
+                                    <br />
+                                    <button class="ostali" type="submit" name="radnja" value="posetioci/@trening.Naziv">Posetioci</button>
+                                }
+                                else
+                                {
+                                    <button class="ostali" type="submit" name="radnja" value="mod/@trening.Naziv">Modifikuj</button>
+                                    <br />
+                                    <button class="obrisi" type="submit" name="radnja" value="obrisi" disabled>Obrisi</button>
+                                    <br />
+                                    <button class="ostali" type="submit" name="radnja" value="posetioci/@trening.Naziv">Posetioci</button>
+                                }
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+    }
+    <br />
+    <form method="post" action="/PredTrener/KreirajView">
+        <button class="ostali" type="submit" style="margin-left: 10px; width: 100px;">Kreiraj novi</button>
+    </form>
+    <br />
+    <a href="/Home3/Index3">Nazad</a>
+    <br />
+    <br />
+</div>
+            <br /><br />
+if (ViewBag.posetioci != null)
+{
+                  <div class="posetioci">
+                      <h2>Posetioci</h2>
+                      @if (ViewBag.posetioci.Count == 0)
+                      {
+                          <h3>Ne postoji ni jedan posetilac</h3>
+                      }
+                      else
+                      {
+                          <table>
+                              <tr>
+                                  <th>Ime</th>
+                                  <th>Prezime</th>
+                                  <th>Pol</th>
+                                  <th>Email</th>
+                                  <th>Datum rodjenja</th>
+                              </tr>
+
+                              @{
+
+                                  foreach (Korisnik korisnik in ViewBag.posetioci)
+                                  {
+                                      <tr>
+                                          <td class="paran">@korisnik.Ime</td>
+                                          <td class="neparan">@korisnik.Prezime</td>
+                                          @if (korisnik.Pol == Pol.MUSKI)
+                                          {
+                                              <td class="paran">
+                                                  MUSKI
+                                              </td>
+                                          }
+                                          @if (korisnik.Pol == Pol.ZENSKI)
+                                          {
+                                              <td class="paran">
+                                                  ZENSKI
+                                              </td>
+                                          }
+
+
+                                          <td class="neparan">@korisnik.Email</td>
+                                          <td class="paran">@korisnik.Datum_rodjenja.Day/@korisnik.Datum_rodjenja.Month/@korisnik.Datum_rodjenja.Year</td>
+                                      </tr>
+                                  }
+                              }
+
+
+                          </table>
+                          
+                      }
+                  </div>
+    
+                }
+                }
+
+
+

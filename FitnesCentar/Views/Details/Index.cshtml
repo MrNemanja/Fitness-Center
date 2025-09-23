@@ -1,0 +1,354 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using FitnesCentar.Models;
+
+<style>
+
+    * {
+        font-family: 'Trebuchet MS';
+        color: darkgreen;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 
+    {
+        display: inline;
+    }
+
+    h4
+    {
+        display: inline;
+    }
+    
+    h2
+    {
+        text-align: center;
+    }
+
+    hr {
+        width: 65%;
+        border: 1px solid white;
+    }
+
+    div.container {
+        width: 64.7%;
+        height: 800px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    div.komentari {
+        width: 64.7%;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+    }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 95%;
+        height: 400px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    button.other {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        button.disable {
+            width: 80px;
+            height: 30px;
+            color: darkgreen;
+            border-radius: 8px 6px;
+        }
+
+        button.sort {
+            width: 80px;
+            height: 30px;
+            color: darkgreen;
+            border-radius: 8px 6px;
+            margin-left: 4px;
+        }
+
+            button.sort:hover {
+                width: 80px;
+                height: 30px;
+                color: gold;
+                background-color: darkgreen;
+            }
+
+        button.other:hover {
+            width: 80px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    input[type="text"] {
+        background-color: gold;
+    }
+
+    input[type="number"] {
+        background-color: gold;
+    }
+
+
+    label#godina {
+        font-weight: bold;
+    }
+
+    input[type="submit"]#pretrazi 
+    {
+        margin-left: 10px;
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        input[type="submit"]#pretrazi:hover 
+        {
+            color: gold;
+            background-color: darkgreen;
+        }
+</style>
+
+@{ 
+    Korisnik logovani = new Korisnik();
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+    }
+}
+
+<h1>EVIDENCIJA FITNES CENTARA</h1>
+<hr>
+<div class="container">
+    <h2>Detalji</h2>
+    <h3>Naziv:</h3>&nbsp;<h4>@ViewBag.prosledjen.Naziv</h4>
+    <br />
+    <h3>Adresa:</h3>&nbsp;<h4>@ViewBag.prosledjen.Adresa</h4>
+    <br />
+    <h3>Godina otvaranja:</h3>&nbsp;<h4>@ViewBag.prosledjen.Godina_otvaranja</h4>
+    <br />
+    <h3>Vlasnik:</h3>&nbsp;<h4>@ViewBag.prosledjen.Vlasnik.Ime&nbsp;@ViewBag.prosledjen.Vlasnik.Prezime&nbsp;@ViewBag.prosledjen.Vlasnik.Email</h4>
+    <br />
+    <h3>Mesecna clanarina:</h3>&nbsp;<h4>@ViewBag.prosledjen.Cena_mesecne_clanarine</h4>
+    <br />
+    <h3>Godisnja clanarina:</h3>&nbsp;<h4>@ViewBag.prosledjen.Cena_godisnje_clanarine</h4>
+    <br />
+    <h3>Cena jednog treninga:</h3>&nbsp;<h4>@ViewBag.prosledjen.Cena_jednog_treninga</h4>
+    <br />
+    <h3>Cena jednog grupnog treninga:</h3>&nbsp;<h4>@ViewBag.prosledjen.Cena_jednog_grupni</h4>
+    <br />
+    <h3>Cena jednog treninga sa personalnim trenerom:</h3>&nbsp;<h4>@ViewBag.prosledjen.Cena_jednog_trener</h4>
+    <br />
+    <br />
+    @if (ViewBag.grupni.Count == 0)
+    {
+        <h3>Ne postoji ni jedan grupni trening</h3>
+    }
+    else
+    {
+    <table>
+        <tr>
+            <th>Naziv</th>
+            <th>TipTreninga</th>
+            <th>Trajanje</th>
+            <th>Datum i vreme</th>
+            <th>Max posetilaca</th>
+            <th>Broj prijavljenih</th>
+            @if (logovani.Uloga == Uloga.POSETILAC && logovani.Username != "" && logovani.Username != null)
+            {
+                <th></th>
+            }
+
+        </tr>
+
+        @{
+
+            foreach (GrupniTrening trening in ViewBag.grupni)
+            {
+        <tr>
+
+            <td class="paran">@trening.Naziv</td>
+            @if (trening.TipTreninga == TipTreninga.BODY_PUMP)
+            {
+                <td class="neparan">
+                    BODY PUMP
+                </td>
+            }
+            @if (trening.TipTreninga == TipTreninga.CARDIO)
+            {
+                <td class="neparan">
+                    CARDIO
+                </td>
+            }
+            @if (trening.TipTreninga == TipTreninga.LES_MILLS_BODYBALANCE)
+            {
+                <td class="neparan">
+                    LES MILLS BODYBALANCE
+                </td>
+            }
+            @if (trening.TipTreninga == TipTreninga.LES_MILLS_TONE)
+            {
+                <td class="neparan">
+                    LES MILLS TONE
+                </td>
+            }
+            @if (trening.TipTreninga == TipTreninga.YOGA)
+            {
+                <td class="neparan">
+                    YOGA
+                </td>
+            }
+            <td class="paran">@trening.Trajanje</td>
+            @if (trening.Date_time.Minute < 10)
+            {
+                <td class="neparan">@trening.Date_time.Day/@trening.Date_time.Month/@trening.Date_time.Year&nbsp;@trening.Date_time.Hour:<p style="display: inline;">0</p>@trening.Date_time.Minute</td>
+            }
+            else
+            {
+                <td class="neparan">@trening.Date_time.Day/@trening.Date_time.Month/@trening.Date_time.Year&nbsp;@trening.Date_time.Hour:@trening.Date_time.Minute</td>
+            }
+            <td class="paran">@trening.Max_posetilaca</td>
+            <td class="neparan">@trening.Posetioci.Count</td>
+
+            @if (logovani.Uloga == Uloga.POSETILAC && logovani.Username != "" && logovani.Username != null)
+            {
+                <td class="paran">
+                    <form method="post" action="~/Home2/Prijava">
+                        @if (trening.Posetioci.Count > 0)
+                        {
+                            int i = 0;
+                            foreach (Korisnik k in trening.Posetioci)
+                            {
+                                if (k.Username.Equals(logovani.Username) || trening.Posetioci.Count > trening.Max_posetilaca)
+                                {
+                                            <button class="disable" type="submit" disabled>Prijavi se</button>
+                                    break;
+                                }
+                                i++;
+                            }
+
+                            if (i == trening.Posetioci.Count)
+                            {
+                                <button class="other" type="submit" name="prijava" value="@logovani.Username/@trening.Naziv">Prijavi se</button>
+                            }
+
+
+                        }
+                        else
+                        {
+                            <button class="other" type="submit" name="prijava" value="@logovani.Username/@trening.Naziv">Prijavi se</button>
+                        }
+
+                    </form>
+                </td>
+            }
+        </tr>
+
+            }
+
+        }
+
+    </table>
+    }
+
+</div>
+<br />
+<div class="komentari">
+    <h2>Komentari</h2>
+    @if (ViewBag.prosledjena2.Count == 0)
+    {
+        <h3>Ne postoji ni jedan komentar</h3>
+    }
+    else
+    {
+        foreach (Komentar komentar in ViewBag.prosledjena2)
+        {
+            <h3 class="komentar">@komentar.Posetilac.Ime&nbsp;@komentar.Posetilac.Prezime</h3>
+            <br />
+            <h3 style="display: inline;">Ocena:</h3><h4>@komentar.Ocena</h4>
+            <br />
+            <h3 style="display:inline;">Komentar:</h3><h4 class="komentar">@komentar.Opis</h4>
+
+            if (logovani.Uloga == Uloga.VLASNIK)
+            {
+                foreach (Fitnes_Centar centar in logovani.Fitnescentri)
+                {
+                    if (centar.Naziv.Equals(komentar.FitnesCentar.Naziv))
+                    {
+                        if (ViewBag.komentar == null)
+                        {
+                            <br />
+                            <form method="post" action="~/Home4/Dozvola_Blokiranje">
+                                <button class="other" type="submit" name="dozvola" value="dozvola/@komentar.FitnesCentar.Naziv/@komentar.Posetilac.Username">Dozvoli</button>
+                                <button class="other" type="submit" name="dozvola" value="blokiranje/@komentar.FitnesCentar.Naziv/@komentar.Posetilac.Username">Blokiraj</button>
+                            </form>
+                        }
+                        else
+                        {
+                            if (ViewBag.komentar.Posetilac.Username.Equals(komentar.Posetilac.Username))
+                            {
+                                if (komentar.Blokiran == true)
+                                {
+                                    <label>Blokirano</label>
+                                }
+                                else
+                                {
+                                    <label>Dozvoljeno</label>
+                                }
+                            }
+                            else
+                            {
+                                <form method="post" action="~/Home4/Dozvola_Blokiranje">
+                                    <button class="other" type="submit" name="dozvola" value="dozvola/@komentar.FitnesCentar.Naziv/@komentar.Posetilac.Username">Dozvoli</button>
+                                    <button class="other" type="submit" name="dozvola" value="blokiranje/@komentar.FitnesCentar.Naziv/@komentar.Posetilac.Username">Blokiraj</button>
+                                </form>
+                            }
+
+
+                        }
+                    }
+                }
+            }
+            <br />
+        }
+    }
+
+</div>

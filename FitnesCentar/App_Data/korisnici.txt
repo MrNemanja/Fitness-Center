@@ -1,0 +1,13 @@
+nidza;nidza123;Nikola;Nikolic;M;nikola.nikolic@gmail.com;28:11:1971;VLASNIK;Mega gym
+mica;mica123;Milica;Milic;Z;milica.milic@yahoo.com;6:12:1998;TRENER;FullBody,StrenghtYourHeart,GetHot;Mega gym;False
+jeca;jeca123;Jelena;Jelic;Z;jelena.jelic@gmail.com;15:3:1997;TRENER;Relax,BalanceYourSpine;Synergy;False
+lidija;lidija123;Lidija;Lidic;Z;lidija.lidic@gmail.com;7:7:1997;TRENER;BalanceInHips;Dzuns;False
+zo;zo12345;Zo;Zojic;M;zo.zojic@gmail.com;29:5:2022;POSETILAC;BodySplit,BurnLegs,BicepsTriceps
+jo;jo12345;Jo;Jojic;M;jo.jojic@gmail.com;31:5:2022;POSETILAC;BodySplit,BeABeast,UpperLower,BeFaster,GetHot,BicepsTriceps
+pera;pera123;Petar;Petrovic;M;pera.petrovic@gmail.com;14:12:1993;TRENER;BodySplit,BurnChest;Dzuns;False
+stefan;stefan123;Stefan;Stefanovic;M;stefan.stefanovic@gmail.com;2:3:1998;TRENER;UpperLower,BeFaster,BicepsTriceps;Synergy;False
+slavko;slavko123;Slavko;Slavkic;M;slavko.slavkovic02@gmail.com;2:8:2002;POSETILAC;Novi2,BeABeast,BalanceYourSpine,UpperLower,Relax,GetHot,BurnLegs,BurnChest,BicepsTriceps
+mare;mare123;Marko;Markovic;M;marko.markovic@yahoo.com;12:5:1993;VLASNIK;Dzuns,NoLimitGym,ClassicGym
+sima;sima123;Sima;Simic;M;sima.simic@gmail.com;2:2:1994;TRENER;NoLimitGym;False
+neca;neca123;Nemanjaa;Nikoliccc;M;nemanja.nikolic97@gmail.com;1:11:1997;VLASNIK;Synergy
+bogdan;bogdan123;Bogdan;Bogdanovic;M;bogdan.bogdanovic@gmail.com;2:5:1989;TRENER;FullBody,BeABeast,Novi2,Novi,BurnLegs;Mega gym;False

@@ -1,0 +1,5 @@
+Mega gym;Temerinska 95,Novi Sad,21000;2021;Nikola,Nikolic,nikola.nikolic@gmail.com;4000;40000;500;400;1500;False
+Synergy;Veselina Maslese 74,Novi Sad,21000;2010;Nemanja,Nikolic,nemanja.nikolic97@gmail.com;3800;38000;450;300;1200;False
+NoLimitGym;Branka Bajica 11,Novi Sad,21000;2022;Marko,Markovic,marko.markovic@yahoo.com;3200;15000;370;270;900;False
+Dzuns;Doza Djerdja 10,Novi Sad,21000;2009;Marko,Markovic,marko.markovic@yahoo.com;2800;24000;320;220;1000;False
+ClassicGym;gdfgdfg 12,sgsgsd,21000;2015;Marko,Markovic,marko.markovic@yahoo.com;100;789;987;77;99;False

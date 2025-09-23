@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using FitnesCentar.Models;
+
+<style>
+    * {
+        font-family: 'Trebuchet MS';
+        color: darkgreen;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    h4 {
+        display: inline;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    h2.drugo
+    {
+        text-align: center;
+    }
+
+    hr {
+        width: 65%;
+        border: 1px solid white;
+    }
+
+    div.container {
+        width: 30%;
+        height: 350px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    div.komentari {
+        width: 64.7%;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin-left: 340px;
+    }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 1000px;
+        height: 400px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    button {
+        width: 80px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        button.sort {
+            width: 80px;
+            height: 30px;
+            color: darkgreen;
+            border-radius: 8px 6px;
+            margin-left: 4px;
+        }
+
+            button.sort:hover {
+                width: 80px;
+                height: 30px;
+                color: gold;
+                background-color: darkgreen;
+            }
+
+        button:hover {
+            width: 80px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    input[type="text"] {
+        background-color: gold;
+    }
+
+    input[type="text"] {
+        background-color: gold;
+    }
+
+    input[type="password"] {
+        background-color: gold;
+    }
+
+    input[type="submit"] {
+        margin-left: 10px;
+        width: 85px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        input[type="submit"]:hover {
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    label.greska {
+        color: red;
+        font-size: 10px;
+    }
+</style>
+
+@{
+    Korisnik logovani = null;
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+        if (logovani.Uloga != Uloga.VLASNIK)
+        {
+            logovani = null;
+        }
+    }
+}
+
+
+    @if (logovani == null)
+    {
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container2">
+            <h2 class="drugo">Niste se ulogovali!</h2>
+            <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+        </div>
+    }
+    else
+    {
+
+
+    <h1>EVIDENCIJA FITNES CENTARA</h1>
+    <hr>
+    <div class="container">
+        <h2>Blokiraj trenera</h2>
+        @if (ViewBag.error == null)
+        {
+            <form method="post" action="~/BlokirajTrener/Blokiraj">
+                <label>Username:</label>
+                <input type="text" name="username" />
+                <br />
+                <br />
+                <br />
+                <button type="submit" name="izbor" value="Blokiraj">Blokiraj</button>
+                &nbsp;&nbsp;
+                <button type="submit" name="izbor" value="Odblokiraj">Odblokiraj</button>
+            </form>
+            <h3>Spisak trenera</h3>
+            <br />
+            foreach (Korisnik korisnik in ViewBag.treneri)
+            {
+                <label>@korisnik.Username &nbsp;@korisnik.Ime &nbsp;@korisnik.Prezime &nbsp;@korisnik.Email &nbsp;@korisnik.Datum_rodjenja.Day/@korisnik.Datum_rodjenja.Month/@korisnik.Datum_rodjenja.Year &nbsp;</label>
+                <br />
+            }
+        }
+        else
+        {
+            string[] errors = ViewBag.error;
+            <form method="post" action="~/BlokirajTrener/Blokiraj">
+                <label>Username:</label>
+                <input type="text" name="username" />
+                <br />
+                @foreach (string str in errors)
+                {
+                    if (str.ToLower().Contains("username"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                    else if (str.ToLower().Contains("onog"))
+                    {
+                        <label class="greska">
+                            @str
+                        </label>
+
+                    }
+                }
+                <br />
+                <br />
+                <button type="submit" name="izbor" value="Blokiraj">Blokiraj</button>
+                &nbsp;&nbsp;
+                <button type="submit" name="izbor" value="Odblokiraj">Odblokiraj</button>
+            </form>
+            <h3>Spisak trenera</h3>
+            <br />
+            foreach (Korisnik korisnik in ViewBag.treneri)
+            {
+                <label>@korisnik.Username &nbsp;@korisnik.Ime &nbsp;@korisnik.Prezime &nbsp;@korisnik.Email &nbsp;@korisnik.Datum_rodjenja.Day/@korisnik.Datum_rodjenja.Month/@korisnik.Datum_rodjenja.Year &nbsp;</label>
+                <br />
+            }
+        }
+        <a href="/Home4/Index4">Nazad</a>
+    </div>
+
+    }
+

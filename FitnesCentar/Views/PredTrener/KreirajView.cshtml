@@ -1,0 +1,307 @@
+﻿
+@{
+    ViewBag.Title = "KreirajView";
+}
+
+@using FitnesCentar.Models;
+
+<style>
+    * {
+        font-family: 'Trebuchet MS';
+        color: darkgreen;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 {
+        display: inline;
+    }
+
+    h4 {
+        display: inline;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    h2.drugo
+    {
+        text-align: center;
+    }
+
+    hr {
+        width: 65%;
+        border: 1px solid white;
+    }
+
+    div.container {
+        width: 30%;
+        height: 48%;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 1000px;
+        height: 400px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    button {
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        button.sort {
+            width: 80px;
+            height: 30px;
+            color: darkgreen;
+            border-radius: 8px 6px;
+            margin-left: 4px;
+        }
+
+            button.sort:hover {
+                width: 80px;
+                height: 30px;
+                color: gold;
+                background-color: darkgreen;
+            }
+
+        button:hover {
+            width: 60px;
+            height: 30px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    input[type="text"] {
+        background-color: gold;
+    }
+
+    input[type="number"] {
+        background-color: gold;
+    }
+
+    input[type="datetime"] {
+        background-color: gold;
+    }
+
+    input[type="submit"] {
+        margin-left: 10px;
+        width: 85px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+    }
+
+        input[type="submit"]:hover {
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    label.greska {
+        color: red;
+        font-size: 10px;
+    }
+</style>
+
+@{
+    GrupniTrening trening = ViewBag.trening;
+}
+
+@{
+    Korisnik logovani = null;
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+        if (logovani.Uloga != Uloga.TRENER)
+        {
+            logovani = null;
+        }
+
+    }
+}
+
+@if (logovani == null)
+{
+    <h1>EVIDENCIJA FITNES CENTARA</h1>
+    <hr>
+    <div class="container2">
+        <h2 class="drugo">Niste se ulogovali!</h2>
+        <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+    </div>
+}
+else
+{
+
+<h1>EVIDENCIJA FITNES CENTARA</h1>
+<hr>
+<div class="container">
+    <h2>Kreiranje grupnog treninga</h2>
+    @if (ViewBag.error == null)
+    {
+        <form method="post" action="/PredTrener/Kreiraj">
+            <label>Naziv:</label>
+            <input type="text" name="Naziv" />
+            <br>
+            <br />
+            <br />
+            <label>Tip Treninga:</label>
+            <select name="TipTreninga">
+                <option>YOGA</option>
+                <option>LES_MILLS_TONE</option>
+                <option>BODY_PUMP</option>
+                <option>LES_MILLS_BODYBALANCE</option>
+                <option>CARDIO</option>
+            </select>
+            <br>
+            <br />
+            <br />
+            <label>Trajanje:</label>
+            <input type="number" name="Trajanje" />
+            <br>
+            <br />
+            <br />
+            <label>Datum i vreme:</label>
+            <input type="datetime-local" name="Date_time" />
+            <br>
+            <br />
+            <br />
+            <label>Max posetilaca:</label>
+            <input type="number" name="Max_posetilaca" />
+            <br>
+            <br />
+            <br />
+            &nbsp;&nbsp;
+            <input type="submit" value="Kreiraj" />
+        </form>
+    }
+    else
+    {
+        string[] errors = ViewBag.error;
+
+
+        <form method="post" action="/PredTrener/Kreiraj">
+            <label>Naziv:</label>
+            <input type="text" name="Naziv" />
+            <br>
+            @foreach (string str in errors)
+            {
+                if (str.ToLower().Contains("naziv"))
+                {
+                    <label class="greska">
+                        @str
+                    </label>
+
+                }
+            }
+            <br />
+            <br />
+            <label>Tip Treninga:</label>
+            <select name="TipTreninga">
+                <option>YOGA</option>
+                <option>LES_MILLS_TONE</option>
+                <option>BODY_PUMP</option>
+                <option>LES_MILLS_BODYBALANCE</option>
+                <option>CARDIO</option>
+            </select>
+            <br>
+            <br />
+            <br />
+            <label>Trajanje:</label>
+            <input type="number" name="Trajanje" />
+            <br>
+            @foreach (string str in errors)
+            {
+                if (str.ToLower().Contains("trajanje"))
+                {
+                    <label class="greska">
+                        @str
+                    </label>
+
+                }
+            }
+            <br />
+            <br />
+            <label>Datum i vreme:</label>
+            <input type="datetime-local" name="Date_time" />
+            <br>
+            @foreach (string str in errors)
+            {
+                if (str.ToLower().Contains("datum"))
+                {
+                    <label class="greska">
+                        @str
+                    </label>
+
+                }
+            }
+            <br />
+            <br />
+            <label>Max posetilaca:</label>
+            <input type="number" name="Max_posetilaca" />
+            <br>
+            @foreach (string str in errors)
+            {
+                if (str.ToLower().Contains("max posetilaca"))
+                {
+                    <label class="greska">
+                        @str
+                    </label>
+
+                }
+            }
+            <br />
+            <br />
+            &nbsp;&nbsp;
+            <input type="submit" value="Kreiraj" />
+        </form>
+
+    }
+    <br />
+    <a href="/PredTrener/Index">Nazad</a>
+</div>
+
+}
+

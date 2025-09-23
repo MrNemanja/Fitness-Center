@@ -1,0 +1,340 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+@using FitnesCentar.Models
+<!--<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div> -->
+
+<style>
+
+    * {
+        font-family: 'Trebuchet MS';
+    }
+
+    h1 {
+        text-align: center;
+        color: darkgreen;
+    }
+
+    hr {
+        width: 65%;
+        border: 1px solid white;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: darkgreen;
+    }
+
+        h2.drugo {
+            text-align: center;
+        }
+
+    h3 {
+        margin-left: 10px;
+        color: darkgreen;
+    }
+
+    div.table {
+        vertical-align: top;
+        background-color: rgba(98, 98, 98, 0.50);
+        width: 47.5%;
+        height: 40%;
+        padding: 5px;
+        display: inline-block;
+        margin-left: 1.5%;
+        color: darkgreen;
+    }
+
+    div.container {
+        width: 100%;
+    }
+
+    div.container2 {
+        width: 30%;
+        height: 450px;
+        background-color: rgba(98, 98, 98, 0.50);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    div.buttons {
+        background-color: rgba(98, 98, 98, 0.50);
+        width: 15%;
+        height: 40%;
+        display: inline-block;
+        margin-left: 17.5%;
+        color: darkgreen;
+    }
+
+    div.meni {
+        width: 35%;
+        position: absolute;
+        display: inline-block;
+    }
+
+    div.profil {
+        width: 12%;
+        position: absolute;
+        display: inline-block;
+        margin-left: 93%;
+    }
+
+    button.meni {
+        background-color: rgba(17, 17, 17, 0.65);
+        color: gold;
+        width: 16%;
+        height: 50px;
+    }
+
+    button.meni2 {
+        background-color: rgba(17, 17, 17, 0.65);
+        color: gold;
+        width: 50%;
+        height: 50px;
+    }
+
+    button.meni:hover {
+        color: antiquewhite;
+    }
+
+    button.meni2:hover {
+        color: antiquewhite;
+    }
+
+    td.paran {
+        background-color: darkgreen;
+        border: 3px solid black;
+        padding: 1px;
+        color: gold;
+        font-size: 15px;
+    }
+
+    td.neparan {
+        background-color: gold;
+        border: 3px solid black;
+        padding: 1px;
+        font-size: 15px;
+        color: darkgreen;
+    }
+
+    table {
+        border: 3px solid black;
+        width: 95%;
+        height: 410px;
+        text-align: center;
+        margin-left: 1%;
+        color: darkgreen;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 1px;
+        text-align: center;
+        font-size: 25px;
+        color: darkgreen;
+    }
+
+    button.ostali {
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        margin-left: 3%;
+    }
+
+    button.sort {
+        width: 30%;
+        height: 32px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        margin-left: 1%;
+    }
+
+        button.sort:hover {
+            width: 30%;
+            height: 32px;
+            color: gold;
+            background-color: darkgreen;
+        }
+
+    button.ostali:hover {
+        width: 60px;
+        height: 30px;
+        color: gold;
+        background-color: darkgreen;
+    }
+
+    input[type="text"] {
+        background-color: gold;
+        color: darkgreen;
+    }
+
+    input[type="number"] {
+        background-color: gold;
+        color: darkgreen;
+    }
+
+
+    label#godina {
+        font-weight: bold;
+        color: darkgreen;
+    }
+
+    input[type="submit"]#pretrazi {
+        margin-left: 10px;
+        width: 60px;
+        height: 30px;
+        color: darkgreen;
+        border-radius: 8px 6px;
+        color: darkgreen;
+    }
+
+        input[type="submit"]#pretrazi:hover {
+            color: gold;
+            background-color: darkgreen;
+            color: darkgreen;
+        }
+
+</style>
+
+<!--<script type="text/javascript">
+
+    function buttonClick() {
+        location.href =
+    }
+</script>
+    -->
+
+@{
+    Korisnik logovani = null;
+    if (Session["logovani"] != null)
+    {
+        logovani = (Korisnik)Session["logovani"];
+        if(logovani.Uloga != Uloga.VLASNIK)
+        {
+            logovani = null;
+        }
+    }
+}
+
+@{
+    if (logovani == null)
+    {
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container2">
+            <h2 class="drugo">Niste se ulogovali!</h2>
+            <a href="~/Home/Index">Idi na pocetnu stranicu.</a>
+
+        </div>
+    }
+    else
+    {
+
+
+        <div class="meni">
+            <form method="post" action="~/Home4/Choice2">
+                <button class="meni" type="submit" name="prihvati" value="Dodaj">Dodaj Trenera</button>
+                <button class="meni" type="submit" name="prihvati" value="Blokiraj">Blokiraj trenra</button>
+                <button class="meni" type="submit" name="prihvati" value="Fitnes">Fitnes centri</button>
+                <button class="meni" type="submit" name="prihvati" value="Odjava">Odjava</button>
+            </form>
+        </div>
+        <div class="profil">
+            <form method="post" action="~/Profile/Index">
+                <button class="meni2" type="submit">Uredi Profil</button>
+            </form>
+        </div>
+        <h1>EVIDENCIJA FITNES CENTARA</h1>
+        <hr>
+        <div class="container">
+            <div class="buttons">
+
+                <h3>Pretraga</h3>
+                <form method="post" action="/Home4/Search">
+                    <label>Naziv:</label>
+                    <input type="text" name="naziv">
+                    <br />
+                    <label>Adresa:</label>
+                    <input type="text" name="adresa" />
+                    <br />
+                    <br />
+                    <label id="godina">Godina otvaranja:</label>
+                    <br />
+                    <br />
+                    <label>Minimalna granica:</label>
+                    <input type="text" name="mingran" />
+                    <br />
+                    <label>Maksimalna granica:</label>
+                    <input type="text" name="maxgran" />
+                    <br /> <br />
+                    <button class="ostali" type="submit" value="pretrazi" name="izbor">Pretrazi</button>
+                    &nbsp;
+                    <button class="ostali" type="submit" value="reset" name="izbor">Reset</button>
+                </form>
+
+                <h3>Sort</h3>
+                <form method="post" action="~/Home4/Sort">
+                    <button class="sort" type="submit" name="submit" value="NazivA">NazivuA</button>
+                    <button class="sort" type="submit" name="submit" value="AdresaA">AdresiA</button>
+                    <button class="sort" type="submit" name="submit" value="GodinaA">GodiniA</button>
+                    <br />
+                    <br />
+                </form>
+                <form method="post" action="~/Home4/SortDESC">
+                    <button class="sort" type="submit" name="submit" value="NazivD">NazivuD</button>
+                    <button class="sort" type="submit" name="submit" value="AdresaD">AdresiD</button>
+                    <button class="sort" type="submit" name="submit" value="GodinaD">GodiniD</button>
+                </form>
+                <br /> <br /> <br />
+            </div>
+
+            <div class="table">
+                <h2>Fitnes centri</h2>
+                @if (ViewBag.centri.Count == 0)
+                {
+                    <h3>Ne postoji ni jedan fitnes centar</h3>
+                }
+                else
+                {
+                <table>
+                    <tr>
+                        <th>Naziv</th>
+                        <th>Adresa</th>
+                        <th>Godina otvaranja</th>
+                        <th></th>
+                    </tr>
+
+                    @{
+
+                        foreach (Fitnes_Centar centar in ViewBag.centri)
+                        {
+                            <tr>
+
+                                <td class="paran">@centar.Naziv</td>
+                                <td class="neparan">@centar.Adresa</td>
+                                <td class="paran">@centar.Godina_otvaranja</td>
+                                <td class="neparan">
+                                    <form method="post" action="~/Details/Choose">
+                                        <button class="ostali" type="submit" name="detalji" value="@centar.Naziv">Detalji</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        }
+                    }
+
+                </table>
+                        }
+            </div>
+        </div>
+    }
+}
+
+
